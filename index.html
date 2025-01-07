@@ -14,16 +14,17 @@
         <button class="diff-btn" data-difficulty="hard">Hard</button>
     </div>
 
-    <div id="game">
-        <p id="timer">Time:</p>
-        <p id="score">Score:</p>
+    <div id="game" style="display: none">
+        <p id="timer">Time: 90s</p>
+        <p id="score">Score: 0</p>
         <p id="question">Question:</p>
         <input type="text" id="answer" placeholder="Your Answer">
         <button id="submit">Submit</button>
         <p id="message"></p>
+        <div id="cookie-container"></div>
+        <img id="character-img" src="./image/crayon.JPG" alt="crayon">
     </div>
 
-    <button>Play Again!</button>
-
+    <button id="restart" style="display: none;">Play Again!</button>
 </body>
 </html>

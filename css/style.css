@@ -1,5 +1,61 @@
 body {
-    font-style : arial;
+    font-family: Arial, sans-serif;
     text-align: center;
+    background-color: pink;
+    margin: 0;
+    padding: 20px;
 }
 
+button {
+    margin: 10px;
+    padding: 10px 20px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+#message {
+    font-size: 20px;
+    margin: 10px 0;
+}
+
+#message.win {
+    color: green;
+}
+
+#message.lose {
+    color: red;
+}
+
+#difficulty button {
+    font-size: 20px;
+    margin: 20px;
+}
+
+#answer {
+    width: 200px;
+    height: 40px;
+    font-size: 18px;
+}
+
+#character-img {
+    width: 100px;
+    height: 100px;
+    margin: 20px auto;
+}
+
+#cookie-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.cookie {
+    width: 50px;
+    transition: transform 0.5s ease, opacity 0.5s ease;
+}
+
+.cookie.eaten {
+    transform: scale(0);
+    opacity: 0;
+}
