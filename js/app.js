@@ -1,4 +1,3 @@
-// HTML Elements
 const difficultyDiv = document.getElementById('difficulty');
 const gameDiv = document.getElementById('game');
 const restartBtn = document.getElementById('restart');
@@ -9,43 +8,35 @@ const answerInput = document.getElementById('answer');
 const submitBtn = document.getElementById('submit');
 const messageDisplay = document.getElementById('message');
 const characterImg = document.getElementById('character-img');
-const cookieContainer = document.getElementById('cookie-container');
+const hammerImg = document.getElementById('hammer-img');
+const cookies = document.querySelectorAll('.cookie');
 
-// Variables
 let difficulty = 'easy';
 let timer;
 let time = 90;
 let score = 0;
 let currentCookieIndex = 0;
 let currentAnswer = null;
-let cookies = [];
-let winScore = 10;
+const totalCookies = cookies.length;
 
-// Functions
 function initGame() {
+    setTimeBasedOnDifficulty();
     difficultyDiv.style.display = 'none';
     gameDiv.style.display = 'block';
     restartBtn.style.display = 'none';
-    messageDisplay.textContent = '';
-    characterImg.src = './image/crayon.JPG';
-    cookieContainer.innerHTML = '';
-    cookies = [];
-
-    for (let i = 0; i < winScore; i++) {
-        const cookie = document.createElement('img');
-        cookie.src = './image/cookie.JPG';
-        cookie.classList.add('cookie');
-        cookieContainer.appendChild(cookie);
-        cookies.push(cookie);
-    }
-
-    time = 90;
     score = 0;
     currentCookieIndex = 0;
     updateScore();
     updateTimer();
     startTimer();
     generateQuestion();
+    positionCharacter();
+}
+
+function positionCharacter() {
+    characterImg.style.left = '30%';
+    characterImg.style.top = '0';
+    hammerImg.style.display = 'none';
 }
 
 function startTimer() {
@@ -59,12 +50,29 @@ function startTimer() {
     }, 1000);
 }
 
+function setTimeBasedOnDifficulty() {
+    if (difficulty === 'easy') {
+        time = 90;
+    } else if (difficulty === 'medium') {
+        time = 120;
+    } else if (difficulty === 'hard') {
+        time = 150;
+    }
+}
+
 function updateTimer() {
     timerDisplay.textContent = `Time: ${time}s`;
 }
 
 function updateScore() {
     scoreDisplay.textContent = `Score: ${score}`;
+}
+
+function getNumberRange() {
+    if (difficulty === 'easy') return [1, 10];
+    if (difficulty === 'medium') return [10, 50];
+    if (difficulty === 'hard') return [50, 100];
+    return [1, 10];
 }
 
 function generateQuestion() {
@@ -80,54 +88,71 @@ function generateQuestion() {
         currentAnswer = num1;
     } else {
         question = `${num1} ${operator} ${num2}`;
-        currentAnswer = Math.round(eval(question) * 100) / 100;
+        currentAnswer = eval(question);
     }
 
     questionDisplay.textContent = `Question: ${question}`;
 }
 
-function getNumberRange() {
-    if (difficulty === 'easy') return [1, 10];
-    if (difficulty === 'medium') return [10, 50];
-    if (difficulty === 'hard') return [50, 100];
+function moveCharacterToCookie(cookie) {
+    const cookiePosition = cookie.offsetLeft;
+    const cookieVerticalPosition = cookie.offsetTop;
+
+    characterImg.style.left = `${cookiePosition - 40}px`;
+
+    setTimeout(() => {
+        cookie.classList.add('eaten');
+        characterImg.src = './image/happycrayon.JPG';
+        setTimeout(() => {
+            characterImg.src = './image/crayon.JPG';
+        }, 1000);
+    }, 500);
+}
+
+function showHammerEffect() {
+    hammerImg.style.left = characterImg.style.left;
+    hammerImg.style.top = characterImg.offsetTop - 50 + 'px';
+    hammerImg.style.display = 'block';
+    characterImg.src = './image/sadcrayon.JPG';
+    setTimeout(() => {
+        hammerImg.style.display = 'none';
+        characterImg.src = './image/crayon.JPG';
+    }, 1000);
 }
 
 function checkAnswer() {
     const userAnswer = parseFloat(answerInput.value.trim());
-    if (Math.abs(userAnswer - currentAnswer) < 0.001) {
+    if (userAnswer === currentAnswer) {
         score++;
         updateScore();
+
         if (currentCookieIndex < cookies.length) {
-            const currentCookie = cookies[currentCookieIndex];
-            currentCookie.classList.add('eaten');
+            moveCharacterToCookie(cookies[currentCookieIndex]);
             currentCookieIndex++;
         }
-        characterImg.src = './image/happycrayon.JPG';
-        checkWinCondition();
+
+        if (score === totalCookies) {
+            endGame(true);
+        }
     } else {
-        characterImg.src = './image/sadcrayon.JPG';
+        showHammerEffect();
     }
+
     answerInput.value = '';
     generateQuestion();
 }
 
-function checkWinCondition() {
-    if (score >= winScore) {
-        clearInterval(timer);
-        messageDisplay.textContent = 'You Win!';
-        restartBtn.style.display = 'block';
-        gameDiv.style.display = 'none';
-    }
-}
-
 function endGame(win) {
-    clearInterval(timer);
-    messageDisplay.textContent = win ? 'You Win!' : 'Time\'s Up! You Lose!';
+    if (win) {
+        messageDisplay.textContent = 'Congratulations! You ate all the cookies! 🎉';
+        messageDisplay.classList.add('win');
+    } else {
+        messageDisplay.textContent = 'Time’s Up! 😢';
+    }
+
     restartBtn.style.display = 'block';
-    gameDiv.style.display = 'none';
 }
 
-// Event Listeners
 document.querySelectorAll('.diff-btn').forEach(btn => {
     btn.addEventListener('click', (e) => {
         difficulty = e.target.dataset.difficulty;
@@ -146,4 +171,6 @@ restartBtn.addEventListener('click', () => {
     difficultyDiv.style.display = 'block';
     gameDiv.style.display = 'none';
     restartBtn.style.display = 'none';
+    messageDisplay.textContent = '';
+    positionCharacter();
 });

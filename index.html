@@ -14,17 +14,32 @@
         <button class="diff-btn" data-difficulty="hard">Hard</button>
     </div>
 
-    <div id="game" style="display: none">
-        <p id="timer">Time: 90s</p>
-        <p id="score">Score: 0</p>
+    <div id="game" style="display: none; position: relative">
+        <p id="timer">Time:</p>
+        <p id="score">Score:</p>
         <p id="question">Question:</p>
         <input type="text" id="answer" placeholder="Your Answer">
         <button id="submit">Submit</button>
         <p id="message"></p>
-        <div id="cookie-container"></div>
-        <img id="character-img" src="./image/crayon.JPG" alt="crayon">
+
+        <div id="game-area">
+            <img id="character-img" src="./image/crayon.JPG" alt="Character">
+            <img id="hammer-img" src="./image/hit.jpg" alt="Hammer">
+            <div id="cookie-container">
+                <img class="cookie" src="./image/cookie.JPG" alt="cookie">
+                <img class="cookie" src="./image/cookie.JPG" alt="cookie">
+                <img class="cookie" src="./image/cookie.JPG" alt="cookie">
+                <img class="cookie" src="./image/cookie.JPG" alt="cookie">
+                <img class="cookie" src="./image/cookie.JPG" alt="cookie">
+                <img class="cookie" src="./image/cookie.JPG" alt="cookie">
+                <img class="cookie" src="./image/cookie.JPG" alt="cookie">
+                <img class="cookie" src="./image/cookie.JPG" alt="cookie">
+                <img class="cookie" src="./image/cookie.JPG" alt="cookie">
+                <img class="cookie" src="./image/cookie.JPG" alt="cookie">
+            </div>
+        </div>
     </div>
 
-    <button id="restart" style="display: none;">Play Again!</button>
+    <button id="restart">Play Again!</button>
 </body>
 </html>
