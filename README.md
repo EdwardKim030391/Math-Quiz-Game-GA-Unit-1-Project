@@ -6,8 +6,7 @@ Math Quiz World is an interactive game designed to make learning math fun and en
 This game was inspired by a desire to combine learning with entertainment and to create a tool that helps people, particularly kids, improve their arithmetic skills.
 
 ## 📸Screenshots
-
-
+[!screenshot1](https://github.com/EdwardKim030391/Math-Quiz-Game-GA-Unit-1-Project/blob/main/image/mathquiz1.png)
 
 
 ## 🔥Getting Started
