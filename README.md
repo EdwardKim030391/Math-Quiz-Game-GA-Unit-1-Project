@@ -1,0 +1,37 @@
+## Math Quiz Game
+#### Created by Edward Kim
+
+## 📚Description
+Math Quiz World is an interactive game designed to make learning math fun and engaging. Players solve math problems of varying difficulty while racing against the clock. With vibrant visuals, cheerful character animations, and an escalating challenge level, the game encourages players to sharpen their math skills in an exciting way.
+This game was inspired by a desire to combine learning with entertainment and to create a tool that helps people, particularly kids, improve their arithmetic skills.
+
+## 📸Screenshots
+
+
+
+
+## 🔥Getting Started
+Play the Game
+
+Click here to play Math Quiz World!
+
+How to Play
+* Select a difficulty level: Easy, Medium, Hard, or Extreme.
+* Solve the math problems that appear on the screen.
+* Input your answer and click "Submit" or press Enter.
+* Earn points for correct answers and eat all the cookies before the timer runs out!
+
+## 🎶Attributions
+Game Assets:
+
+* Character images by Pinterest.
+* Background music from Bensound.com.
+
+## 💻Technologies Used
+JavaScript, CSS Grid, HTML5
+
+
+## 🎉Upcoming Features
+* Add multiplayer functionality for friendly competition.
+* Create additional characters and animations to increase visual appeal.
+* Add a "practice mode" without a timer for relaxed learning.
