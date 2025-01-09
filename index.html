@@ -12,15 +12,17 @@
         <button class="diff-btn" data-difficulty="easy">Easy</button>
         <button class="diff-btn" data-difficulty="medium">Medium</button>
         <button class="diff-btn" data-difficulty="hard">Hard</button>
+        <button class="diff-btn" data-difficulty="extreme">Extreme</button>
     </div>
 
     <div id="game" style="display: none; position: relative">
+        <p id="message">Welcome to Math Quiz World</p>
         <p id="timer">Time:</p>
         <p id="score">Score:</p>
         <p id="question">Question:</p>
         <input type="text" id="answer" placeholder="Your Answer">
         <button id="submit">Submit</button>
-        <p id="message"></p>
+        <button id="back-button">Back to Main</button>
 
         <div id="game-area">
             <img id="character-img" src="./image/crayon.JPG" alt="Character">
@@ -40,6 +42,24 @@
         </div>
     </div>
 
-    <button id="restart">Play Again!</button>
+    <button id="light/dark">Light/Dark Mode</button>
+
+    <button id="restart" style="display: none">Play Again!</button>
+
+    <audio id="background-music" src="./audio/funnysong.mp3" loop></audio>
+        <div id = music-btn>
+        <button id="play-music-btn">🎶</button>
+        </div>
+
+    <div id ="how-to-play">
+    <p>
+     <strong>How to Play</strong>
+     <li><strong>Start the Game:</strong> Select a difficulty level: Easy, Medium, Hard, or Extreme.</li>
+     <li><strong>Solve the Problems:</strong> All questions are math related. Solve the math problems that appear on the screen.</li>
+     <li><strong>Time Limit:</strong> There is a time limit for each modes.</li>
+     <li><strong>Check Your Score:</strong> You earn points for each correct answer, and you need to answer all 10 questions correctly.</li>
+     <li><strong>Game Over:</strong> If you answer all the questions within the time limit, you win. If not, a "Game Over" message will appear.</li>
+    </p>
+    </div>
 </body>
 </html>

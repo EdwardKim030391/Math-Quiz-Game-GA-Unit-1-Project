@@ -10,6 +10,11 @@ const messageDisplay = document.getElementById('message');
 const characterImg = document.getElementById('character-img');
 const hammerImg = document.getElementById('hammer-img');
 const cookies = document.querySelectorAll('.cookie');
+const darkBtn = document.getElementById('light/dark');
+const body = document.body;
+const music = document.getElementById('background-music');
+const playMusicBtn = document.getElementById('play-music-btn');
+const backButton = document.getElementById('back-button');
 
 let difficulty = 'easy';
 let timer;
@@ -19,7 +24,9 @@ let currentCookieIndex = 0;
 let currentAnswer = null;
 const totalCookies = cookies.length;
 
+//Game initialization function
 function initGame() {
+    document.getElementById('how-to-play').style.display = 'none';
     setTimeBasedOnDifficulty();
     difficultyDiv.style.display = 'none';
     gameDiv.style.display = 'block';
@@ -33,19 +40,21 @@ function initGame() {
     positionCharacter();
 }
 
+//Character position setting function
 function positionCharacter() {
-    characterImg.style.left = '30%';
-    characterImg.style.top = '0';
-    hammerImg.style.display = 'none';
+    characterImg.style.left = '30%'; //set char left position
+    characterImg.style.top = '0'; //set char top position
+    hammerImg.style.display = 'none'; //hide hammer
 }
 
+//Start timer function
 function startTimer() {
     timer = setInterval(() => {
-        time--;
-        updateTimer();
-        if (time <= 0) {
-            clearInterval(timer);
-            endGame(false);
+        time--; //decrease time by 1 every second
+        updateTimer(); //update timer display
+        if (time <= 0) { //if time runs out
+            clearInterval(timer); //stop the timer
+            endGame(false); //end game with lose
         }
     }, 1000);
 }
@@ -57,6 +66,8 @@ function setTimeBasedOnDifficulty() {
         time = 120;
     } else if (difficulty === 'hard') {
         time = 150;
+    } else if (difficulty === 'extreme') {
+        time = 300;
     }
 }
 
@@ -68,89 +79,126 @@ function updateScore() {
     scoreDisplay.textContent = `Score: ${score}`;
 }
 
+//Get number range based on difficulty function
 function getNumberRange() {
     if (difficulty === 'easy') return [1, 10];
     if (difficulty === 'medium') return [10, 50];
     if (difficulty === 'hard') return [50, 100];
+    if (difficulty === 'extreme') return [1, 100];
     return [1, 10];
 }
 
-function generateQuestion() {
-    const [min, max] = getNumberRange();
-    const num1 = Math.floor(Math.random() * (max - min + 1)) + min;
-    const num2 = Math.floor(Math.random() * (max - min + 1)) + min;
-    const operators = ['+', '-', '*', '/'];
-    const operator = operators[Math.floor(Math.random() * operators.length)];
 
+function generateQuestion() {
+    const [min, max] = getNumberRange(); // Set the number range based on difficulty
     let question;
-    if (operator === '/') {
-        question = `${num1 * num2} / ${num2}`;
-        currentAnswer = num1;
+    let xValue;
+
+    if (difficulty === 'extreme') {
+         // Extreme mode: generate an equation
+        const num1 = Math.floor(Math.random() * (max - min + 1)) + min; // A coefficient
+        const num2 = Math.floor(Math.random() * (max - min + 1)) + min; // B value
+        xValue = Math.floor(Math.random() * (max - min + 1)) + min; // X value
+
+        // Equation: Ax + B = C
+        const C = num1 * xValue + num2;
+        question = `Solve for x: ${num1}x + ${num2} = ${C}`;
+
+
+        currentAnswer = (C - num2) / num1;
+
+        // Fix floating point precision issues
+        currentAnswer = parseFloat(currentAnswer.toFixed(2));
     } else {
-        question = `${num1} ${operator} ${num2}`;
-        currentAnswer = eval(question);
+        // Other difficulties: generate a basic math problem
+        const num1 = Math.floor(Math.random() * (max - min + 1)) + min;
+        const num2 = Math.floor(Math.random() * (max - min + 1)) + min;
+        const operators = ['+', '-', '*', '/'];
+        const operator = operators[Math.floor(Math.random() * operators.length)];
+
+        if (operator === '/') {
+            question = `${num1 * num2} / ${num2}`;
+            currentAnswer = num1;
+        } else {
+            question = `${num1} ${operator} ${num2}`;
+            currentAnswer = eval(question);
+        }
     }
 
     questionDisplay.textContent = `Question: ${question}`;
 }
+// Update hammer position function
+function updateHammerPosition() {
 
+    const characterLeft = characterImg.getBoundingClientRect().left; // Get character's left position
+    hammerImg.style.left = `${characterLeft + 100}px`; // Set hammer's position
+}
+// Move character to a cookie function
 function moveCharacterToCookie(cookie) {
-    const cookiePosition = cookie.offsetLeft;
-    const cookieVerticalPosition = cookie.offsetTop;
+    const cookiePosition = cookie.getBoundingClientRect().left; // Get cookie's left position
 
-    characterImg.style.left = `${cookiePosition - 40}px`;
+    characterImg.style.left = `${cookiePosition - 50}px`; // Move character to the cookie's position
 
     setTimeout(() => {
         cookie.classList.add('eaten');
         characterImg.src = './image/happycrayon.JPG';
+
         setTimeout(() => {
             characterImg.src = './image/crayon.JPG';
+
+            updateHammerPosition();
         }, 1000);
     }, 500);
+
+    updateHammerPosition();
 }
 
 function showHammerEffect() {
-    hammerImg.style.left = characterImg.style.left;
-    hammerImg.style.top = characterImg.offsetTop - 50 + 'px';
+
+    updateHammerPosition();
+
+    hammerImg.style.bottom = '450px'; // Set hammer's bottom position
     hammerImg.style.display = 'block';
-    characterImg.src = './image/sadcrayon.JPG';
+    characterImg.src = './image/sadcrayon.JPG'; // Change character to sad image
+
     setTimeout(() => {
         hammerImg.style.display = 'none';
-        characterImg.src = './image/crayon.JPG';
+        characterImg.src = './image/crayon.JPG'; // Change character back to original image
     }, 1000);
 }
-
+// Check the answer function
 function checkAnswer() {
-    const userAnswer = parseFloat(answerInput.value.trim());
+    const userAnswer = parseFloat(answerInput.value.trim()); // Get the user's answer
     if (userAnswer === currentAnswer) {
         score++;
         updateScore();
 
         if (currentCookieIndex < cookies.length) {
-            moveCharacterToCookie(cookies[currentCookieIndex]);
+            moveCharacterToCookie(cookies[currentCookieIndex]); // Move character to the next cookie
             currentCookieIndex++;
         }
 
         if (score === totalCookies) {
-            endGame(true);
+            endGame(true); // End game with win if all cookies are eaten
         }
     } else {
-        showHammerEffect();
+        showHammerEffect(); // Show hammer effect if the answer is incorrect
     }
 
-    answerInput.value = '';
+    answerInput.value = ''; // Clear input field
     generateQuestion();
 }
 
 function endGame(win) {
+    clearInterval(timer);
     if (win) {
         messageDisplay.textContent = 'Congratulations! You ate all the cookies! 🎉';
         messageDisplay.classList.add('win');
     } else {
         messageDisplay.textContent = 'Time’s Up! 😢';
     }
-
     restartBtn.style.display = 'block';
+    submitBtn.disabled = true;
 }
 
 document.querySelectorAll('.diff-btn').forEach(btn => {
@@ -160,6 +208,7 @@ document.querySelectorAll('.diff-btn').forEach(btn => {
     });
 });
 
+// Enter key press event to submit answer
 submitBtn.addEventListener('click', checkAnswer);
 answerInput.addEventListener('keyup', (event) => {
     if (event.key === 'Enter') {
@@ -168,9 +217,65 @@ answerInput.addEventListener('keyup', (event) => {
 });
 
 restartBtn.addEventListener('click', () => {
+
+    clearInterval(timer);
+
     difficultyDiv.style.display = 'block';
     gameDiv.style.display = 'none';
     restartBtn.style.display = 'none';
-    messageDisplay.textContent = '';
+
+    messageDisplay.textContent = 'Welcome to Math Quiz World';
+    messageDisplay.classList.remove('win');
+    answerInput.value = '';
+
+    score = 0;
+    time = 90;
+    updateScore();
+    updateTimer();
     positionCharacter();
+    cookies.forEach(cookie => cookie.classList.remove('eaten'));
+});
+
+window.addEventListener('DOMContentLoaded', () => {
+    if (localStorage.getItem('theme') === 'dark') {
+        body.classList.add('dark');
+    }
+});
+
+darkBtn.addEventListener('click', () => {
+    body.classList.toggle('dark');
+    localStorage.setItem('theme', body.classList.contains('dark') ? 'dark' : 'light');
+});
+
+let isMusicPlaying = false;
+
+playMusicBtn.addEventListener('click', () => {
+    if (isMusicPlaying) {
+        music.pause();
+        playMusicBtn.textContent = '🎶';
+    } else {
+        music.play();
+        playMusicBtn.textContent = '🔇';
+    }
+    isMusicPlaying = !isMusicPlaying;
+});
+
+backButton.addEventListener('click', () => {
+
+    clearInterval(timer);
+
+    difficultyDiv.style.display = 'block';
+    gameDiv.style.display = 'none';
+    restartBtn.style.display = 'none';
+
+    messageDisplay.textContent = 'Welcome to Math Quiz World';
+    messageDisplay.classList.remove('win');
+    answerInput.value = '';
+
+    score = 0;
+    time = 90;
+    updateScore();
+    updateTimer();
+    positionCharacter();
+    cookies.forEach(cookie => cookie.classList.remove('eaten'));
 });
