@@ -25,9 +25,9 @@ This game was inspired by a desire to combine learning with entertainment and to
 [Planning](https://docs.google.com/document/d/15DRTQYY4RrRAUtukrhEORhAzwKgc4XC7SXZ2d8hNqBw/edit?usp=sharing)
 
 ## 🎶Attributions
-Game Assets:
+**Game Assets**:
 
-* Character images by Pinterest.
+* Character images from Pinterest.
 * Background music from Bensound.com.
 
 ## 💻Technologies Used
