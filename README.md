@@ -20,6 +20,9 @@ How to Play
 * Input your answer and click "Submit" or press Enter.
 * Earn points for correct answers and eat all the cookies before the timer runs out!
 
+Planning Material
+[Planning](https://docs.google.com/document/d/15DRTQYY4RrRAUtukrhEORhAzwKgc4XC7SXZ2d8hNqBw/edit?usp=sharing)
+
 ## 🎶Attributions
 Game Assets:
 
