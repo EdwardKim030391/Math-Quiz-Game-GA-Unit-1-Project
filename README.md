@@ -12,7 +12,7 @@ This game was inspired by a desire to combine learning with entertainment and to
 ## 🔥Getting Started
 Play the Game
 
-[Click here](https://edwardkim030391.github.io/Math-Quiz-Game-GA-Unit-1-Project/)to play Math Quiz World!
+[Click here](https://edwardkim030391.github.io/Math-Quiz-Game-GA-Unit-1-Project/) to play Math Quiz World!
 
 How to Play
 * Select a difficulty level: Easy, Medium, Hard, or Extreme.
