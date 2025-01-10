@@ -10,17 +10,17 @@ This game was inspired by a desire to combine learning with entertainment and to
 ![screenshot2](https://github.com/EdwardKim030391/Math-Quiz-Game-GA-Unit-1-Project/blob/main/image/mathquiz2.png)
 
 ## 🔥Getting Started
-Play the Game
+**Play the Game**
 
 [Click here](https://edwardkim030391.github.io/Math-Quiz-Game-GA-Unit-1-Project/) to play Math Quiz World!
 
-How to Play
+**How to Play**
 * Select a difficulty level: Easy, Medium, Hard, or Extreme.
 * Solve the math problems that appear on the screen.
 * Input your answer and click "Submit" or press Enter.
 * Earn points for correct answers and eat all the cookies before the timer runs out!
 
-Planning Material
+**Planning Material**
 
 [Planning](https://docs.google.com/document/d/15DRTQYY4RrRAUtukrhEORhAzwKgc4XC7SXZ2d8hNqBw/edit?usp=sharing)
 
