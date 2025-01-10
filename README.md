@@ -31,7 +31,7 @@ This game was inspired by a desire to combine learning with entertainment and to
 * Background music from Bensound.com.
 
 ## 💻Technologies Used
-JavaScript, CSS Grid, HTML5
+JavaScript, CSS, HTML5
 
 
 ## 🎉Upcoming Features
