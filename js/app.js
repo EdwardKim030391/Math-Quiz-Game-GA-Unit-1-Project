@@ -42,7 +42,7 @@ function initGame() {
 
 //Character position setting function
 function positionCharacter() {
-    characterImg.style.left = '30%'; //set char left position
+    characterImg.style.left = '25%'; //set char left position
     characterImg.style.top = '0'; //set char top position
     hammerImg.style.display = 'none'; //hide hammer
 }
